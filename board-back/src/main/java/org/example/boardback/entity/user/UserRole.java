@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "user_roles", uniqueConstraints = {@UniqueConstraint(name = "uk_user_roles_user_id_role_name", columnNames = {"user_id", "role_name"})},
+@Table(name = "user_roles",
+        uniqueConstraints = {
+            @UniqueConstraint(name = "uk_user_roles_user_id_role_name", columnNames = {"user_id", "role_name"})},
         indexes = {
             @Index(name = "idx_user_roles_user_id", columnList = "user_id"),
             @Index(name = "idx_user_roles_role_name", columnList = "role_name"),
