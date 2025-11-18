@@ -9,7 +9,7 @@ import org.example.boardback.entity.base.BaseTimeEntity;
 import org.example.boardback.entity.user.User;
 
 @Entity
-@Table(name = "board_draft", indexes = {
+@Table(name = "board_drafts", indexes = {
         @Index(name = "idx_board_drafts_user_id", columnList = "user_id"),
         @Index(name = "idx_board_draft_updated_at", columnList = "updated_at"),
 })

@@ -142,7 +142,7 @@ create table board_likes (
     constraint `fk_board_like_user` foreign key (user_id) references users(id)
 )engine=InnoDB default charset = utf8mb4 collate = utf8mb4_unicode_ci comment = '게시글 좋아요';
 
-create table board_draft (
+create table board_drafts (
 	id bigint auto_increment primary key,
     
     title varchar(150) null comment '임시 제목',
