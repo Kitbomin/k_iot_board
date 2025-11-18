@@ -13,3 +13,6 @@
 //      > user.api.ts
 
 //? API는 도메인 단위 `객체형 export` 권장
+
+//? Path 는 도메인 별 분리
+//  : prefix는 분리하고, endpoint만 객체 구조로 명시

@@ -2,7 +2,7 @@
 
 import type { LoginRequest, LoginResponse } from "@/types/auth.type";
 import { publicApi } from "../common/axiosInstance";
-import { API_ROUTES } from "../common/apiMappingPattern";
+import { API_ROUTES } from "../common/base.path";
 import type { ApiResponse } from "@/types/common/ApiResponse";
 
 export const authApi = {

@@ -1,7 +1,7 @@
 // user.api.ts
 
 import type { ApiResponse } from "@/types/common/ApiResponse";
-import { API_ROUTES } from "../common/apiMappingPattern";
+import { API_ROUTES } from "../common/base.path";
 import { privateApi, publicApi } from "../common/axiosInstance";
 import type { UserDetail, UserList } from "@/types/user/user.type";
 
