@@ -20,11 +20,11 @@ public class BoardDraft extends BaseTimeEntity {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = true, length = 150)
     private String title;
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

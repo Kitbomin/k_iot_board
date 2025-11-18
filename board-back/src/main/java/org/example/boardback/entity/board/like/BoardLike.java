@@ -14,7 +14,7 @@ import org.example.boardback.entity.user.User;
         uniqueConstraints = @UniqueConstraint(name = "uk_board_like_user", columnNames = { "board_id", "user_id"}),
         indexes = {
             @Index(name = "idx_board_like_board", columnList = "board_id"),
-            @Index(name = "idx_board_lie_user", columnList = "user_id"),
+            @Index(name = "idx_board_like_user", columnList = "user_id"),
 })
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,5 +36,4 @@ public class BoardLike extends BaseTimeEntity {
         this.board = board;
         this.user = user;
     }
-
 }

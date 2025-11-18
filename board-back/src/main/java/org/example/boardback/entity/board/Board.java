@@ -73,5 +73,4 @@ public class Board extends BaseTimeEntity {
         this.content = content;
         this.category = category;
     }
-
 }

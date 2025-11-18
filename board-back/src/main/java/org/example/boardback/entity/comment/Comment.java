@@ -44,6 +44,4 @@ public class Comment extends BaseTimeEntity {
     public void changeContent(String content) {
         this.content = content;
     }
-
-
 }

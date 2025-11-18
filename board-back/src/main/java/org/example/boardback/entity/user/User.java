@@ -85,6 +85,4 @@ public class User extends BaseTimeEntity {
                 // 읽기 전용 셋
                 .collect(Collectors.toUnmodifiableSet());
     }
-
-
 }
