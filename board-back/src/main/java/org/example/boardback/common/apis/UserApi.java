@@ -16,7 +16,7 @@ public class UserApi {
     public static final String BY_ID = ROOT + ID_ONLY;
 
     // 내 정보에 대한 접근 용도 -> 현재 로그인한 사용자 자신의 정보에 접근하는 용도 - userId를 path variable로 받지 않음
-    public static final String ME = ROOT + "/me";
+    public static final String ME = "/me";
 
     // 특정 유저의 비밀번호 변경 및 초기화 관련 엔드포인트
     // : {userId}/password
