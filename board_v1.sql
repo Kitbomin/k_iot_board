@@ -8,6 +8,37 @@ use board_v1;
 SET NAMES utf8mb4;				-- 클라이언트와 MySQL 서버 간의 문자 인코딩 설정 
 SET FOREIGN_KEY_CHECKS = 0;		-- 외래키 제약조건 검사를 일시적으로 끄는 설정
 
+# 기존 테이블 제거
+DROP TABLE IF EXISTS post_files;
+DROP TABLE IF EXISTS file_infos;
+
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS board_likes;
+DROP TABLE IF EXISTS board_drafts;
+DROP TABLE IF EXISTS boards;
+DROP TABLE IF EXISTS board_categories;
+
+DROP TABLE IF EXISTS refresh_tokens;
+DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS users;
+
+# === File_Info (파일 정보 테이블) === #
+create table if not exists file_infos(
+	id bigint auto_increment primary key,
+    
+    original_name varchar(255) not null comment '원본 파일명',
+    stored_name varchar(255) not null comment 'UUID가 적용된 파일명',	-- UUID: 고유 식별 번호
+    content_type varchar(255),
+    file_size bigint,
+    file_path varchar(255) not null comment '서버 내 실제 경로',
+    
+    created_at datetime(6) not null default current_timestamp(6)
+    
+)engine=InnoDB default charset = utf8mb4 collate = utf8mb4_unicode_ci comment = '파일 정보 테이블';
+
+
+
 # === USERS (사용자) === #
 drop table if exists user_roles;
 drop table if exists roles;
@@ -23,6 +54,7 @@ create table if not exists users (
     nickname varchar(50) not null comment 'nickname',
     
     gender varchar(10) comment '성별',
+    profile_file_id bigint null comment '프로필 이미지 파일 ID',
     
     created_at datetime(6) not null default current_timestamp(6),
     updated_at datetime(6) not null default current_timestamp(6) on update current_timestamp(6),
@@ -30,7 +62,8 @@ create table if not exists users (
     constraint `uk_users_username` unique(username),
     constraint `uk_users_email` unique(email),
     constraint `uk_users_nickname` unique(nickname),
-    constraint `chk_users_gender` check(gender in ('MALE', 'FEMAIL', 'NONE', 'OTHER'))
+    constraint `chk_users_gender` check(gender in ('MALE', 'FEMAIL', 'NONE', 'OTHER')),
+    constraint `fk_users_profile_file` foreign key (profile_file_id) references file_infos(id) on delete set null -- 파일 이미지가 삭제 되어도 null 값 유지 해라 -> 유저 건들지 말라는 뜻
 ) engine=InnoDB default charset = utf8mb4 collate = utf8mb4_unicode_ci comment = '사용자';
 
 create table if not exists roles (
@@ -107,6 +140,23 @@ create table boards (
 )engine=InnoDB default charset = utf8mb4 collate = utf8mb4_unicode_ci comment = '게시판';
 
 
+# === board_Files(게시글 파일 매핑) === #
+create table board_files(
+	id bigint auto_increment primary key,
+	
+    board_id bigint not null,
+    file_id bigint not null,
+    
+    display_order int default 0, 	-- 대표이미지 고려
+    
+    constraint `fk_board_files_board` foreign key (board_id) references boards(id) on delete cascade,
+    constraint `fk_board_files_file_info` foreign key (file_id) references file_infos(id) on delete cascade
+    
+)engine=InnoDB default charset = utf8mb4 collate = utf8mb4_unicode_ci comment = '게시글 파일 매핑 테이블';
+
+
+
+
 create table comments (
 	id bigint auto_increment primary key,
     content longtext not null comment '댓글 본문',
@@ -158,14 +208,6 @@ create table board_drafts (
     
     constraint `fk_board_draft_user` foreign key (user_id) references users(id)
 )engine=InnoDB default charset = utf8mb4 collate = utf8mb4_unicode_ci comment = '게시글 임시 저장';
-
-
-
-
-
-
-
-
 
 
 
